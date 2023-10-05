@@ -3,6 +3,7 @@
 
 Gradient Descent
 """
+from template.costs import compute_loss
 
 
 def compute_gradient(y, tx, w):
@@ -18,9 +19,10 @@ def compute_gradient(y, tx, w):
     """
     # ***************************************************
     # INSERT YOUR CODE HERE
-    # TODO: compute gradient vector
+    nb_sample = y.shape[0]
+    e = y - tx @ w
+    return -1/nb_sample * tx.T @ e
     # ***************************************************
-    raise NotImplementedError
 
 
 def gradient_descent(y, tx, initial_w, max_iters, gamma):
@@ -44,14 +46,13 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
     for n_iter in range(max_iters):
         # ***************************************************
         # INSERT YOUR CODE HERE
-        # TODO: compute gradient and loss
         # ***************************************************
-        raise NotImplementedError
+        loss = compute_loss(y, tx, w)
+        gradient = compute_gradient(y, tx, w)
         # ***************************************************
         # INSERT YOUR CODE HERE
-        # TODO: update w by gradient
+        w = w - gamma*gradient
         # ***************************************************
-        raise NotImplementedError
 
         # store w and loss
         ws.append(w)
