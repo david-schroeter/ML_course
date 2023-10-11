@@ -3,7 +3,7 @@
 
 Gradient Descent
 """
-from template.costs import compute_loss
+from costs import compute_loss
 
 
 def compute_gradient(y, tx, w):
@@ -25,7 +25,7 @@ def compute_gradient(y, tx, w):
     # ***************************************************
 
 
-def gradient_descent(y, tx, initial_w, max_iters, gamma):
+def gradient_descent(y, tx, initial_w, max_iters, gamma, only_last):
     """The Gradient Descent (GD) algorithm.
 
     Args:
@@ -34,6 +34,7 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
         initial_w: shape=(2, ). The initial guess (or the initialization) for the model parameters
         max_iters: a scalar denoting the total number of iterations of GD
         gamma: a scalar denoting the stepsize
+        only_last: a boolean telling whether the result of each step should be printed or just the final one
 
     Returns:
         losses: a list of length max_iters containing the loss value (scalar) for each iteration of GD
@@ -57,10 +58,12 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
         # store w and loss
         ws.append(w)
         losses.append(loss)
-        print(
-            "GD iter. {bi}/{ti}: loss={l}, w0={w0}, w1={w1}".format(
-                bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]
+
+        if not only_last or n_iter == max_iters-1:
+            print(
+                "GD iter. {bi}/{ti}: loss={l}, w0={w0}, w1={w1}".format(
+                    bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]
+                )
             )
-        )
 
     return losses, ws
