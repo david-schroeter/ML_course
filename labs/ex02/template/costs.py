@@ -17,6 +17,7 @@ def compute_loss(y, tx, w):
     """
     # ***************************************************
     # INSERT YOUR CODE HERE
-    # TODO: compute loss by MSE
+    nb_sample = y.shape[0]
+    e = y - tx @ w
+    return 1/(2*nb_sample) * e.T @ e
     # ***************************************************
-    raise NotImplementedError
