@@ -3,6 +3,7 @@
 
 Gradient Descent
 """
+from costs import compute_loss
 
 
 def compute_gradient(y, tx, w):
@@ -18,12 +19,13 @@ def compute_gradient(y, tx, w):
     """
     # ***************************************************
     # INSERT YOUR CODE HERE
-    # TODO: compute gradient vector
+    nb_sample = y.shape[0]
+    e = y - tx @ w
+    return -1/nb_sample * tx.T @ e
     # ***************************************************
-    raise NotImplementedError
 
 
-def gradient_descent(y, tx, initial_w, max_iters, gamma):
+def gradient_descent(y, tx, initial_w, max_iters, gamma, only_last):
     """The Gradient Descent (GD) algorithm.
 
     Args:
@@ -32,6 +34,7 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
         initial_w: shape=(2, ). The initial guess (or the initialization) for the model parameters
         max_iters: a scalar denoting the total number of iterations of GD
         gamma: a scalar denoting the stepsize
+        only_last: a boolean telling whether the result of each step should be printed or just the final one
 
     Returns:
         losses: a list of length max_iters containing the loss value (scalar) for each iteration of GD
@@ -44,22 +47,23 @@ def gradient_descent(y, tx, initial_w, max_iters, gamma):
     for n_iter in range(max_iters):
         # ***************************************************
         # INSERT YOUR CODE HERE
-        # TODO: compute gradient and loss
         # ***************************************************
-        raise NotImplementedError
+        loss = compute_loss(y, tx, w)
+        gradient = compute_gradient(y, tx, w)
         # ***************************************************
         # INSERT YOUR CODE HERE
-        # TODO: update w by gradient
+        w = w - gamma*gradient
         # ***************************************************
-        raise NotImplementedError
 
         # store w and loss
         ws.append(w)
         losses.append(loss)
-        print(
-            "GD iter. {bi}/{ti}: loss={l}, w0={w0}, w1={w1}".format(
-                bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]
+
+        if not only_last or n_iter == max_iters-1:
+            print(
+                "GD iter. {bi}/{ti}: loss={l}, w0={w0}, w1={w1}".format(
+                    bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]
+                )
             )
-        )
 
     return losses, ws
