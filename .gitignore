@@ -105,3 +105,9 @@ ENV/
 *.cb2
 *.fdb_latexmk
 *.synctex.gz
+
+# Pycharm
+
+**/.idea
+
+data/
